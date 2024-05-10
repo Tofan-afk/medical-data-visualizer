@@ -21,6 +21,7 @@ def draw_cat_plot():
     df_cat = df_cat.groupby(['cardio', 'variable', 'value']).size().reset_index(name='total')
     
     # 7
+    fig, ax = plt.subplots(sharex=True, sharey=True)
     g = sns.catplot(data=df_cat, kind='bar', x='variable', y='total', hue='value', col='cardio')
     
     # 8
@@ -28,8 +29,8 @@ def draw_cat_plot():
 
     # 9
     fig.savefig('catplot.png')
+    print(type(fig.axes))
     return fig
-draw_cat_plot()
 
 # 10
 def draw_heat_map():
@@ -53,10 +54,9 @@ def draw_heat_map():
     fig, ax = plt.subplots(figsize=(9,9))
 
     # 15
-    sns.heatmap(corr, linewidths=2, mask=mask, vmax=.3, center=0.08,square=True, annot=True, fmt='.1f')
+    sns.heatmap(corr, mask=mask, vmax=.3, center=0.08,square=True, annot=True, fmt='.1f')
 
 
     # 16
     fig.savefig('heatmap.png')
     return fig
-draw_heat_map()
